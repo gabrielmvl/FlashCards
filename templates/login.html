@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - Nome do Aplicativo Web</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4A90E2",
+              "background-light": "#F4F7F6",
+              "background-dark": "#101622",
+              "danger": "#DC2626",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .peer:invalid:not(:placeholder-shown) ~ .error-message {
+        display: flex;
+      }
+      .peer:invalid:not(:placeholder-shown) {
+        border-color: #DC2626;}
+      .peer:invalid:not(:placeholder-shown):focus {
+        border-color: #DC2626;box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+      }
+    </style>
+</head>
+<body class="font-display">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center bg-background-light dark:bg-background-dark p-4">
+<div class="w-full max-w-md rounded-xl bg-white dark:bg-background-dark/50 border border-gray-200 dark:border-gray-800 shadow-sm">
+<header class="flex items-center gap-4 whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-800 p-6">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">Nome do Aplicativo Web</h2>
+</header>
+<main class="flex flex-col p-6">
+<div class="flex flex-col gap-2 mb-6">
+<p class="text-3xl font-black leading-tight tracking-[-0.033em] text-gray-900 dark:text-white">Bem-vindo de volta</p>
+<p class="text-base font-normal leading-normal text-gray-500 dark:text-gray-400">Faça login na sua conta para continuar.</p>
+</div>
+<form class="flex flex-col gap-4" novalidate="">
+<label class="flex flex-col w-full">
+<p class="pb-2 text-sm font-medium leading-normal text-gray-800 dark:text-gray-200">E-mail</p>
+<div class="relative flex w-full flex-1 flex-col items-stretch">
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-xl">mail</span>
+<input class="peer form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-gray-300 bg-white dark:bg-gray-800/50 dark:border-gray-700 dark:text-white h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 pl-10 pr-4 text-base font-normal leading-normal focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="email@exemplo.com" required="" type="email" value=""/>
+</div>
+<div class="error-message hidden items-center gap-1 pt-1.5 text-danger">
+<span class="material-symbols-outlined text-base">error</span>
+<p class="text-sm">Por favor, insira um e-mail válido.</p>
+</div>
+</div>
+</label>
+<label class="flex flex-col w-full">
+<p class="pb-2 text-sm font-medium leading-normal text-gray-800 dark:text-gray-200">Senha</p>
+<div class="relative flex w-full flex-1 items-stretch">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 text-xl">lock</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-gray-300 bg-white dark:bg-gray-800/50 dark:border-gray-700 dark:text-white h-12 placeholder:text-gray-400 dark:placeholder:text-gray-500 pl-10 pr-10 text-base font-normal leading-normal focus:border-primary focus:ring-2 focus:ring-primary/20" id="password-input" placeholder="Digite sua senha" required="" type="password" value=""/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none" id="toggle-password-button" type="button">
+<span class="material-symbols-outlined text-xl" id="visibility-icon">visibility</span>
+</button>
+</div>
+</label>
+<div class="flex justify-end">
+<a class="text-sm font-medium leading-normal text-primary hover:underline" href="#">Esqueceu sua senha?</a>
+</div>
+<button class="flex h-12 w-full items-center justify-center rounded-lg bg-primary px-4 text-base font-bold text-white shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 dark:ring-offset-background-dark" type="submit">Entrar</button>
+</form>
+</main>
+<footer class="border-t border-gray-200 dark:border-gray-800 p-6 text-center">
+<p class="text-sm text-gray-600 dark:text-gray-400">
+                    Não tem uma conta?
+                    <a class="font-bold text-primary hover:underline" href="#">Registre-se</a>
+</p>
+</footer>
+</div>
+</div>
+<script>
+    const togglePasswordButton = document.getElementById('toggle-password-button');
+    const passwordInput = document.getElementById('password-input');
+    const visibilityIcon = document.getElementById('visibility-icon');
+    togglePasswordButton.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        visibilityIcon.textContent = type === 'password' ? 'visibility' : 'visibility_off';
+    });
+</script>
+</body></html>
