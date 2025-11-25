@@ -6,6 +6,16 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Olá, mundo</h1>
+    {% if current_user.is_authenticated %}
+
+        <h1>Bem vindo, {{ current_user.UserName }}!</h1>
+        <a href="{{ url_for('Logout') }}">Sair</a>
+
+    {% else %}
+
+        <h1>Bem vindo</h1>
+        <a href="{{ url_for('Cadastro') }}">Cadastrar-se</a>
+
+    {% endif %}
 </body>
 </html>
