@@ -8,7 +8,7 @@ class Usuario(UserMixin, db.Model):
 
     id = db.Column(db.Integer(), primary_key=True)
 
-    UserName = db.Column(db.String(), unique=True)
+    UserName = db.Column(db.String(30), unique=True)
 
     Nome = db.Column(db.String())
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+</head>
+<body>
+  <form action="" method="post">
+  <p>E-mail</p> 
+  <input type="text" name="EmailForm" value="{{EmailSub}}" id=""><br>
+  <p>Senha</p> 
+  <input type="password" name="SenhaForm" value="{{SenhaSub}}" id=""><br>
+  {% if NotUser %}
+      <p>E-mail não registrado ou inválido, <a href="{{ url_for('Cadastro') }}">cadastre-se</a>.</p>
+  {% elif SenhaIsIncorrect %}
+      <p>Senha incorreta, tente novamente.</p>
+  {% endif %}
+  <input type="submit" value="Logar">
+  </form>
+</body>
+</html>
