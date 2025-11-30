@@ -1,4 +1,4 @@
-from Auxiliar import B_crypt, B_verify
+from Auxiliar import B_crypt, B_verify, F_crypt, F_decrypt
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from models import Usuario
@@ -21,7 +21,12 @@ def UserLoader(id):
 
 @app.route("/")
 def home():
-    return render_template('home.html')
+    if current_user.is_authenticated:
+        UserName = F_decrypt(current_user.UserName).decode()
+        return render_template('home.html', UserName=UserName)
+
+    else:
+        return render_template('home.html')
 
 @app.route("/Cadastro", methods=['GET', 'POST'])
 def Cadastro():
@@ -32,19 +37,27 @@ def Cadastro():
         return render_template('cadastro.html')
         
     if request.method == 'POST':
-        Nome = request.form['NomeForm'].lower()
-        UserName = request.form['UserNameForm'].lower()
-        Senha = B_crypt(request.form['SenhaForm'])
-        Email = request.form['EmailForm'].lower()
+        NomeSub = request.form['NomeForm'].lower()
+        UserNameSub = request.form['UserNameForm'].lower()
+        SenhaSub = request.form['SenhaForm']
+        EmailSub = request.form['EmailForm'].lower()
 
-        NovoUsuario = Usuario(Nome=Nome, UserName=UserName, Senha=Senha, Email=Email)
+        Nome = F_crypt(NomeSub)
+        UserName = F_crypt(UserNameSub)
+        Senha = B_crypt(SenhaSub)
+        Email = F_crypt(EmailSub)
 
-        db.session.add(NovoUsuario)
-        db.session.commit()
+        ComfirmarSenha = request.form['ComfirmarSenhaForm']
 
-        login_user(NovoUsuario)
+        if not SenhaSub == ComfirmarSenha:
+            return render_template('cadastro.html', NomeSub=NomeSub, UserNameSub=UserNameSub, EmailSub=EmailSub, SenhaSub=SenhaSub, ComfirmarSenhaSub=ComfirmarSenha)
 
-        return redirect(url_for("home"))
+        else:
+            NovoUsuario = Usuario(Nome=Nome, UserName=UserName, Senha=Senha, Email=Email)
+            db.session.add(NovoUsuario)
+            db.session.commit()
+            login_user(NovoUsuario)
+            return redirect(url_for("home"))
 
 @app.route('/Login', methods=['GET', 'POST'])
 def Login():
@@ -54,8 +67,9 @@ def Login():
         return render_template('login.html')
     elif request.method == 'POST':
         Email = request.form['EmailForm'].lower()
+        Email_crypt = F_crypt(Email)
         Senha = request.form['SenhaForm']
-        user = db.session.query(Usuario).filter_by(Email=Email).first()
+        user = db.session.query(Usuario).filter_by(Email=Email_crypt).first()
         if not user:
             return render_template('login.html', NotUser=True, EmailSub=Email, SenhaSub=Senha)
         elif user:
@@ -76,4 +90,4 @@ def Logout():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run()
+    app.run(debug=True)

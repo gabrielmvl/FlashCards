@@ -8,7 +8,7 @@
 <body>
     {% if current_user.is_authenticated %}
 
-        <h1>Bem vindo, {{ current_user.UserName }}!</h1>
+        <h1>Bem vindo, {{ UserName }}!</h1>
         <a href="{{ url_for('Logout') }}">Sair</a>
 
     {% else %}
