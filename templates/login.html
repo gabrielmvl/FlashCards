@@ -1,22 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="static/Styles/login_style.css">
+    <title>BetterStudy - Login</title>
 </head>
 <body>
-  <form action="" method="post">
-  <p>E-mail</p> 
-  <input type="text" name="EmailForm" value="{{EmailSub}}" id=""><br>
-  <p>Senha</p> 
-  <input type="password" name="SenhaForm" value="{{SenhaSub}}" id=""><br>
-  {% if NotUser %}
-      <p>E-mail não registrado ou inválido, <a href="{{ url_for('Cadastro') }}">cadastre-se</a>.</p>
-  {% elif SenhaIsIncorrect %}
-      <p>Senha incorreta, tente novamente.</p>
-  {% endif %}
-  <input type="submit" value="Logar">
-  </form>
+    <main class="container">
+        <form action="" method="post">
+            <h1>BetterStudy Login</h1>
+            {% if NotUser %}
+                <div class="warning"> 
+                    <p>Credenciais inválidas!<br><a href="{{ url_for('Cadastro') }}"> Cadastre-se</a> ou tente novamente.</p>
+                </div>
+            {% else %}
+                <div class="MensagemInicial">
+                    <p>Sentimos a sua falta!<br>Insira seus dados para entrar:</p>
+                </div>
+            {% endif %}
+            <div class="input-box">
+                <input placeholder="Email ou nome de usuario" type="text" name="MainForm" value="{{MainSub}}" id="">
+                <i class="bx bxs-user"></i>
+            </div>
+            <div class="input-box">
+                <input placeholder="Senha" type="password" name="SenhaForm" id="">
+                <i class="bx bxs-lock-alt"></i>
+            </div>
+            <div class="passwd-forgot">
+                <a href="#">Esqueci a senha</a>
+            </div>
+            <button type="submit" class="entrar">Entrar</button>
+            <div class="register-link">
+                <p>Não tem uma conta? <a href="{{ url_for('Cadastro') }}">Cadastre-se</a></p>
+            </div>
+        </form>
+    </main>
 </body>
 </html>
