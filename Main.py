@@ -61,16 +61,18 @@ def Login():
     elif request.method == 'POST':
         Main = request.form['MainForm'].lower()
         Senha = request.form['SenhaForm']
+        RememberLogin = 'RememberLoginForm' in request.form
+        print(RememberLogin)
         user = db.session.query(Usuario).filter_by(Email=Main, Senha=Senha).first()
         if not user:
             user = db.session.query(Usuario).filter_by(UserName=Main, Senha=Senha).first()
             if not user:
                 return render_template('login.html', NotUser=True, MainSub=Main)
             else:
-                login_user(user)
+                login_user(user, remember=RememberLogin)
                 return redirect(url_for('home'))
         else:
-            login_user(user)
+            login_user(user, remember=RememberLogin)
             return redirect(url_for('home'))
 
 @app.route("/Logout")
