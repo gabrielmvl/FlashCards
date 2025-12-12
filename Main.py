@@ -36,27 +36,27 @@ def Cadastro():
         return render_template('cadastro.html')
         
     if request.method == 'POST':
-        NomeSub = request.form['NomeForm'].lower()
-        Nome = F_crypt(NomeSub)
-        HashNome = Hash256(NomeSub)
-        UserNameSub = request.form['UserNameForm'].lower()
-        UserName = F_crypt(UserNameSub)
-        HashUserName = Hash256(UserNameSub)
-        SenhaSub = request.form['SenhaForm']
-        Senha = B_crypt(SenhaSub)
+        
         EmailSub = request.form['EmailForm'].lower()
+        NomeSub = request.form['NomeForm'].lower()
+        UserNameSub = request.form['UserNameForm'].lower()
+        SenhaSub = request.form['SenhaForm']
+        
         Email = F_crypt(EmailSub)
+        Nome = F_crypt(NomeSub)
+        UserName = F_crypt(UserNameSub)
+        Senha = B_crypt(SenhaSub)
+
         HashEmail = Hash256(EmailSub)
+        HashNome = Hash256(NomeSub)
+        HashUserName = Hash256(UserNameSub)
 
-        ComfirmarSenha = request.form['ComfirmarSenhaForm']
+        if db.session.query(Usuario).filter_by(HashEmail=HashEmail).first() or db.session.query(Usuario).filter_by(HashUserName=HashUserName).first():
+            return render_template('cadastro.html', NomeSub=NomeSub, UserNameSub=UserNameSub, EmailSub=EmailSub, UsuarioExiste=True)
 
-        if not SenhaSub == ComfirmarSenha:
-            return render_template('cadastro.html', NomeSub=NomeSub, UserNameSub=UserNameSub, EmailSub=EmailSub)
-
-        else:
-            NovoUsuario = DataBase.NovoUsuario(Nome, UserName, Senha, Email, HashNome, HashUserName, HashEmail)
-            login_user(NovoUsuario)
-            return redirect(url_for("home"))
+        NovoUsuario = DataBase.NovoUsuario(Nome, UserName, Senha, Email, HashNome, HashUserName, HashEmail)
+        login_user(NovoUsuario)
+        return redirect(url_for("home"))
 
 @app.route('/Login', methods=['GET', 'POST'])
 def Login():

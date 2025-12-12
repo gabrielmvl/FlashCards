@@ -1,23 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://cdn.boxicons.com/3.0.6/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  <link href='https://cdn.boxicons.com/3.0.6/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
   <title>Cadastro</title>
 </head>
 <body>
-  <form action="" method="post">
-    <p>E-mail</p>
-    <input type="text" name="EmailForm" value="{{EmailSub}}" id=""><br>
-    <p>Nome Completo</p>
-    <input type="text" name="NomeForm" value="{{NomeSub}}" id=""><br>
-    <p>Nome de usuario</p>
-    <input type="text" name="UserNameForm" value="{{UserName}}" id=""><br>
-    <p>Senha</p>
-    <input type="password" name="SenhaForm" id=""><br>
-    <p>Comfirmar senha</p>
-    <input type="password" name="ComfirmarSenhaForm" id=""><br>
-    <input type="submit" value="Cadastrar-se">
+  <form id="dataform" action="" method="post">
+    <div class="input-box">
+      <input placeholder="E-mail" type="email" name="EmailForm" id="Email" value="{{EmailSub}}">
+    </div>
+    <div class="input-box">
+      <input placeholder="Nome Completo" type="text" name="NomeForm" id="Nome" value="{{NomeSub}}">
+    </div>
+    <div class="input-box">
+      <input placeholder="Nome de usuario" type="text" name="UserNameForm" id="UserName" value="{{UserName}}">
+    </div>
+    <div class="input-box">
+      <input placeholder="Senha" type="password" name="SenhaForm" id="SenhaSub">
+      <button type="button" onclick="MostrarOcultar1()"><i class='bxr bxs-eye' id="Olho1"></i></button>
+      <script>
+        function MostrarOcultar1() {
+          const Olho = document.getElementById('Olho1')
+          const Senha = document.getElementById('Senha')
+          if (Olho.className === 'bxr bxs-eye') {
+              Olho.className = 'bxr bxs-eye-slash'
+              Senha.type = 'text'
+          } else {
+              Olho.className = 'bxr bxs-eye'
+              Senha.type = 'password'
+          }
+      }
+      </script>
+    </div>
+    <div class="input-box">
+      <input placeholder="Comfirmar senha" type="password" name="ComfirmarSenhaForm" id="ConfirmarSenhaSub">
+      <button type="button" onclick="MostrarOcultar2()"><i class='bxr bxs-eye' id="Olho2"></i></button>
+      <script>
+        function MostrarOcultar2() {
+          const Olho = document.getElementById('Olho2')
+          const ConfirmarSenha = document.getElementById('ConfirmarSenha')
+          if (Olho.className === 'bxr bxs-eye') {
+              Olho.className = 'bxr bxs-eye-slash'
+              ConfirmarSenha.type = 'text'
+          } else {
+              Olho.className = 'bxr bxs-eye'
+              ConfirmarSenha.type = 'password'
+          }
+      }
+      </script>
+    </div>
+    <div>
+      <p id="passwd-warning" style="display: none;">Senha não coincidem.</p>
+    </div>
+    <div class="input-box">
+      <input onclick="ComfirmarSenha()" type="button" value="Cadastrar-se">
+    </div>
+    <script>
+      function ComfirmarSenha() {
+        const ConfirmarSenhaSub = document.getElementById('ConfirmarSenhaSub')
+        const SenhaSub = document.getElementById('SenhaSub')
+        const passwdwarning = document.getElementById('passwd-warning')
+        const dataform = document.getElementById('dataform')
+        if (ConfirmarSenhaSub.value === SenhaSub.value) {
+          passwdwarning.style.display = 'none';
+          dataform.submit();
+        } else {
+          ConfirmarSenhaSub.value = '';
+          SenhaSub.value = '';
+          passwdwarning.style.display = 'block';
+        }
+      }
+    </script>
   </form>
 </body>
 </html>
