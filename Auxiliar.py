@@ -4,13 +4,9 @@ from models import Usuario
 from db import db
 import hashlib
 
-FernetKey = ''
-f = ''
-
-def GetFernetKey():
-    with open('JS/static/FernetKey.txt', 'rb') as f:
-        FernetKey = f.read()
-        f = Fernet(FernetKey)
+with open('static/FernetKey.txt', 'rb') as f:
+    FernetKey = f.read()
+    f = Fernet(FernetKey)
 
 def B_crypt(Item):
     salt = bcrypt.gensalt()
@@ -21,13 +17,11 @@ def B_verify(crypt, digit):
     return bcrypt.checkpw(digit.encode(), crypt)
 
 def F_crypt(Item):
-    GetFernetKey()
     Item_Criptografado = f.encrypt(Item.encode())
     return Item_Criptografado
 
 def F_decrypt(Item):
-    GetFernetKey()
-    Item_Decriptografado = f.decrypt(Item)
+    Item_Decriptografado = f.decrypt(Item).decode()
     return Item_Decriptografado
     
 def Hash256(Item):
@@ -35,7 +29,7 @@ def Hash256(Item):
     return Item_Criptografado
     
 class DataBase:
-    def NovoUsuario(self, Nome, UserName, Senha, Email, HashNome, HashUserName, HashEmail):
+    def NovoUsuario(Nome, UserName, Senha, Email, HashNome, HashUserName, HashEmail):
         NovoUsuario = Usuario(Nome=Nome, UserName=UserName, Senha=Senha, Email=Email, HashNome=HashNome, HashUserName=HashUserName, HashEmail=HashEmail)
         db.session.add(NovoUsuario)
         db.session.commit()

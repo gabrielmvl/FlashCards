@@ -22,7 +22,7 @@ def UserLoader(id):
 @app.route("/")
 def home():
     if current_user.is_authenticated:
-        UserName = current_user.UserName
+        UserName = F_decrypt(current_user.UserName).title()
         return render_template('home.html', UserName=UserName)
     else:
         return render_template('home.html')

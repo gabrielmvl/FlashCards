@@ -1,2 +1,3 @@
 instance/database.db
 static/FernetKey.txt
+__pycache__
