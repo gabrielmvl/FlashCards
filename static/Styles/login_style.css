@@ -58,22 +58,15 @@ body {
 .input-box i {
     position: absolute;
     right: 20px;
-    font-size: 20px;
+    font-size: 25px;
     top: 50%;
     transform: translateY(-50%);
     color: #000000;
 }
 
-.input-box button {
-    position: absolute;
-    right: 20px;
-    font-size: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #000000;
-    background: transparent;
-    border: none;
-    padding: 0;
+.input-box button:hover i {
+    color: #7a7a7a;
+    cursor: pointer;
 }
 
 .passwd-forgot {
