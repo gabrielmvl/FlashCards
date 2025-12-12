@@ -64,6 +64,18 @@ body {
     color: #000000;
 }
 
+.input-box button {
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000000;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
 .passwd-forgot {
     display: flex;
     justify-content: space-between;

@@ -8,8 +8,14 @@ class Usuario(UserMixin, db.Model):
 
     UserName = db.Column(db.String(), unique=True)
 
+    HashUserName = db.Column(db.String(), unique=True)
+
     Nome = db.Column(db.String())
+
+    HashNome = db.Column(db.String())
 
     Senha = db.Column(db.String())
 
     Email = db.Column(db.String(), unique=True)
+
+    HashEmail = db.Column(db.String(), unique=True)
